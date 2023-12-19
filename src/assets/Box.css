@@ -1,0 +1,16 @@
+.box {
+    height: 21px;
+    width: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border:  1px solid #aaa;
+    box-shadow: inset 2px 2px 1px #c9c9c94a;
+}
+
+.is-space {
+    width: 8px;
+    border: none;
+    box-shadow: none;
+}
