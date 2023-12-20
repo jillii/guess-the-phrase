@@ -1,5 +1,6 @@
 import Board from './Board'
 import Input from './Input'
+import Status from './Status'
 import { useState } from 'react'
 
 export default function Game() {
@@ -7,6 +8,8 @@ export default function Game() {
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
     const [guess] = useState('')
     const [count, setCount] = useState(0)
+    const [status, setStatus] = useState('enjoy')
+    const [failedGuesses, setFailedGuesses] = useState([]);
 
     const handleGuess = (guess) => {
         const newBoard = [...board]
@@ -18,7 +21,11 @@ export default function Game() {
                 miss = false;
             }
         });
-        if (miss) { setCount(count + 1) }
+        if (miss) { 
+            setCount(count + 1)
+            const newFailedGuesses = [...failedGuesses, guess]
+            setFailedGuesses(newFailedGuesses)
+        }
         setBoard([...newBoard])
     }
 
@@ -26,6 +33,7 @@ export default function Game() {
         <> 
             <Input guess={guess} onGuess={handleGuess} />
             <Board board={board} answer={answer} />
+            <Status status={status}  failedGuesses={failedGuesses} />
         </>
     );
 }
