@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
 export default function Status(props) {
+    const len = props.failedGuesses.length
 
     return(
         <div className="status-bar">
             <p>{props.status}</p>
-            {props.failedGuesses.length > 0 && 'Failed guesses: ' + props.failedGuesses.join(' ')}
+            {len > 0 && 'Failed guesses: ' + props.failedGuesses.join(' ')}
         </div>
     );
 }

@@ -7,33 +7,37 @@ export default function Game() {
     const answer = ['I', 'F', ' ', 'T', 'H', 'E', 'R', 'E', 'S', ' ', 'A', ' ', 'W', 'I', 'L', 'L', ' ', 'T', 'H', 'E', 'R', 'E', 'S', ' ', 'A', ' ', 'W', 'A', 'Y']
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
     const [guess] = useState('')
-    const [count, setCount] = useState(0)
-    const [status, setStatus] = useState('enjoy')
+    const [status, setStatus] = useState('')
     const [failedGuesses, setFailedGuesses] = useState([]);
 
     const handleGuess = (guess) => {
-        const newBoard = [...board]
-        let miss = true;
+        if (status == '') { // user hasn't won or lost
+            const newBoard = [...board]
+            let miss = true;
 
-        answer.map((letter, index) => {
-            if (guess === letter) {
-                newBoard[index] = letter;
-                miss = false;
+            answer.map((letter, index) => {
+                if (guess === letter) {
+                    newBoard[index] = letter;
+                    miss = false;
+                }
+            });
+            if (miss) { 
+                const newFailedGuesses = [...failedGuesses, guess]
+                setFailedGuesses(newFailedGuesses)
+                // handle losing
+                if (failedGuesses.length > 3) { setStatus('you lose') }
             }
-        });
-        if (miss) { 
-            setCount(count + 1)
-            const newFailedGuesses = [...failedGuesses, guess]
-            setFailedGuesses(newFailedGuesses)
+            setBoard([...newBoard])
+            // handle winning
+            if (JSON.stringify(newBoard) == JSON.stringify(answer)) { setStatus('you win') }
         }
-        setBoard([...newBoard])
     }
 
     return(
         <> 
             <Input guess={guess} onGuess={handleGuess} />
             <Board board={board} answer={answer} />
-            <Status status={status}  failedGuesses={failedGuesses} />
+            <Status status={status} failedGuesses={failedGuesses} />
         </>
     );
 }
