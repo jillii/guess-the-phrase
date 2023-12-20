@@ -5,8 +5,7 @@ export default function Input(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
-        props.setGuess(inputRef.current.value.toUpperCase())      
+        props.onGuess(inputRef.current.value.toUpperCase())   
     }
 
     return (
