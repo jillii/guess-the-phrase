@@ -1,10 +1,11 @@
 import Board from './Board'
 import Input from './Input'
 import Status from './Status'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { PHRASES } from './phrases'
 
 export default function Game() {
-    const answer = ['I', 'F', ' ', 'T', 'H', 'E', 'R', 'E', 'S', ' ', 'A', ' ', 'W', 'I', 'L', 'L', ' ', 'T', 'H', 'E', 'R', 'E', 'S', ' ', 'A', ' ', 'W', 'A', 'Y']
+    const answer = useRef(getPhrase()).current
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
     const [guess] = useState('')
     const [status, setStatus] = useState('')
@@ -40,4 +41,8 @@ export default function Game() {
             <Status status={status} failedGuesses={failedGuesses} />
         </>
     );
+}
+
+function getPhrase() {
+    return PHRASES[Math.floor(Math.random() * PHRASES.length)].toUpperCase().split("");
 }
