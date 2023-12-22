@@ -9,8 +9,22 @@
     box-shadow: inset 2px 2px 1px #c9c9c94a;
 }
 
+.box p {
+    opacity: 0;
+    animation: popIn .2s ease-in-out forwards;
+}
+
 .is-space {
     width: 8px;
     border: none;
     box-shadow: none;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

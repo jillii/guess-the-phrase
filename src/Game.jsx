@@ -7,7 +7,7 @@ import { PHRASES } from './phrases'
 export default function Game() {
     const answer = useRef(getPhrase()).current
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
-    const [guess] = useState('')
+    const [guess, setGuess] = useState('')
     const [status, setStatus] = useState('')
     const [failedGuesses, setFailedGuesses] = useState([]);
 
@@ -15,6 +15,8 @@ export default function Game() {
         if (status == '') { // user hasn't won or lost
             const newBoard = [...board]
             let miss = true;
+
+            setGuess(guess)
 
             answer.map((letter, index) => {
                 if (guess === letter) {
@@ -36,8 +38,8 @@ export default function Game() {
 
     return(
         <> 
-            <Input guess={guess} onGuess={handleGuess} />
-            <Board board={board} answer={answer} />
+            <Input onGuess={handleGuess} />
+            <Board board={board} answer={answer} guess={guess} />
             <Status status={status} failedGuesses={failedGuesses} />
         </>
     );
