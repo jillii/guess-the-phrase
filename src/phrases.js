@@ -51,7 +51,7 @@ export const PHRASES = [
     "Under the weather",
     "Off The Hook",
     "Up in the air",
-    "When it rains, it pours",
+    "When it rains it pours",
     "Wrap your head around it",
     "Throw someone for a loop",
     "At the drop of a hat",
