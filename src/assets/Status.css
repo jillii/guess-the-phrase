@@ -1,0 +1,14 @@
+.wavy-text span {
+    display: inline-block;
+    min-width: 4px;
+    animation: wavy-text 1s forwards 1s;
+    animation-delay: calc(.1s * var(--i));
+}
+@keyframes wavy-text {
+    0%,40%,100% {
+        transform: translateY(0)
+    }
+    20% {
+        transform: translateY(-10px)
+    }
+}
