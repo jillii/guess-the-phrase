@@ -9,7 +9,7 @@ export default function Game() {
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
     const [guess, setGuess] = useState('')
     const [status, setStatus] = useState('')
-    const [mistakes, setMistakes] = useState(0);
+    const [mistakes, setMistakes] = useState(4);
 
     const handleGuess = (guess) => {
         if (status == '') { // user hasn't won or lost
@@ -25,9 +25,9 @@ export default function Game() {
                 }
             });
             if (miss) { 
-                setMistakes(mistakes + 1)
+                setMistakes(mistakes - 1)
                 // handle losing
-                if (mistakes > 3) { setStatus('you lose') }
+                if (mistakes <= 1) { setStatus('you lose') }
             }
             setBoard([...newBoard])
             // handle winning
