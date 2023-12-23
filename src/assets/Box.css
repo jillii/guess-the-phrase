@@ -26,6 +26,7 @@
     opacity: 0;
     transform-origin: center;
     animation: dashes .8s forwards .4s linear;
+    animation-delay: inherit;
 }
 
 @keyframes dashes {
