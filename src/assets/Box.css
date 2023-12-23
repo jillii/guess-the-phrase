@@ -10,9 +10,40 @@
 }
 
 .box p {
+    position: relative;
+    height: 100%;
+    width: 100%;
     opacity: 0;
     animation: popIn .2s ease-in-out forwards;
 }
+
+.box p:after {
+    content: url(./starburst.svg);
+    position: absolute;
+    top: -10px;
+    left: -7px;;
+
+    opacity: 0;
+    transform-origin: center;
+    animation: dashes .8s forwards .4s linear;
+}
+
+@keyframes dashes {
+    0% {
+        opacity: 0;
+        stroke: transparent;
+        transform: scale(.5);
+    }
+    75% {
+        opacity: 1;
+        transform: rotate(360deg);
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(360deg);
+    }
+}
+
 
 .is-space {
     width: 8px;
