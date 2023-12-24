@@ -38,7 +38,7 @@ export default function Game() {
     return(
         <> 
             <Input onGuess={handleGuess} />
-            <Board board={board} answer={answer} guess={guess} />
+            <Board board={board} answer={answer} guess={guess} mistakes={mistakes} />
             <Status status={status} mistakes={mistakes} />
         </>
     );

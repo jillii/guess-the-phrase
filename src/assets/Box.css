@@ -7,6 +7,7 @@
     background-color: #fff;
     border:  1px solid #aaa;
     box-shadow: inset 2px 2px 1px #c9c9c94a;
+    transition: all .25s;
 }
 
 .box p {
@@ -14,6 +15,7 @@
     height: 100%;
     width: 100%;
     opacity: 0;
+    line-height: 1;
     animation: popIn .2s ease-in-out forwards;
 }
 
@@ -27,6 +29,21 @@
     transform-origin: center;
     animation: dashes .8s forwards .4s linear;
     animation-delay: inherit;
+}
+
+.box.is-miss {
+    background-color: #f3f3f3;
+    color: #484747fa;
+    box-shadow: inset 2px 2px 1px #acacac4a;
+}
+
+.box.is-miss p {
+    rotate: 90deg;
+}
+
+.box.is-win {
+    background-color: #ffedaa;
+    box-shadow: inset 2px 2px 1px #f3de8f, 0 0 18px #ffedaa5e;
 }
 
 @keyframes dashes {
