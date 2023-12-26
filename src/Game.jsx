@@ -1,6 +1,7 @@
 import Board from './Board'
 import Input from './Input'
 import Status from './Status'
+import Guess from './Guess'
 import { useState, useRef } from 'react'
 import { PHRASES } from './phrases'
 
@@ -40,6 +41,7 @@ export default function Game() {
             <Input onGuess={handleGuess} />
             <Board board={board} answer={answer} guess={guess} mistakes={mistakes} />
             <Status status={status} mistakes={mistakes} />
+            <Guess answer={answer} setBoard={setBoard} setStatus={setStatus} />
         </>
     );
 }
