@@ -17,7 +17,7 @@ export default function Guess(props) {
     }
     return(
         <form onSubmit={handleGuess} method="get">
-            <input type="text" ref={inputRef} placeholder="Guess the phrase..." />
+            <input type="text" ref={inputRef} placeholder="Solve the puzzle" />
             <input type="submit" value="Enter" />
         </form>
     );

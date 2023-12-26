@@ -17,7 +17,7 @@ export default function Board(props) {
 
     const board = props.board.map((letter, index) => {
         if (guess === answer[index]) {delay = delay + .5}
-        return <Box key={index} value={letter} isSpace={answer[index] == ' '} delay={guess === answer[index] ? delay : '0'} status={status} />
+        return <Box key={index} value={letter} answer={answer[index]} isSpace={answer[index] == ' '} delay={guess === answer[index] ? delay : '0'} status={status} />
     })
 
     return (
