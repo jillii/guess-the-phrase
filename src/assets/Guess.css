@@ -1,0 +1,53 @@
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+input {
+    font-family: "Cascadia Code",Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;
+}
+input[type=text] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 33px;
+    padding: 6px 12px;
+    background-color: transparent;
+    border-width: 0;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    will-change: background-color;
+    transition: background-color .25s;
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+input[type=text]:focus::placeholder {
+    color: transparent;
+}
+
+input[type=submit] {
+    background-color: #f5f5fa;
+    border-radius: 100px;
+    box-shadow: #2a274f17 0 -25px 18px -14px inset,#2a274f17 0 1px 2px,#2a274f17 0 2px 4px,#2a274f17 0 4px 8px,#2a274f17 0 8px 16px,#2a274f17 0 16px 32px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 7px 20px;
+    transition: all 250ms;
+    border: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+input[type=submit]:hover {
+    background-color: #fff;
+    box-shadow: #2a274f17 0 -25px 18px -14px inset,#2a274f17 0 1px 2px,#2a274f17 0 2px 4px,#2a274f17 0 4px 8px,#2a274f17 0 8px 16px,#2a274f17 0 16px 32px;
+}
+
+input[type=submit]:active {
+    background-color: #f5f5fa;
+    box-shadow: inset #2a274f17 0 1px 2px, inset #2a274f17 0 2px 4px,inset #2a274f17 0 4px 8px,inset #2a274f17 0 8px 16px,#2a274f17 0 16px 32px
+}

@@ -14,7 +14,7 @@ export default function Status(props) {
                 <div className='mistakes'>
                     <p>Mistakes remaining:</p>
                     <div className='bubbles'>
-                        {[...Array(4)].map((x, index) => <div key={index} className={`bubble${mistakes < index + 1 ? ' hidden' : ''}`}></div>)}
+                        {[...Array(4)].map((x, index) => <div key={index} className={`bubble${mistakes < index + 1 ? ' hidden' : ''}`}><div className='bubble-inner'></div></div>)}
                     </div>
                 </div>
             }

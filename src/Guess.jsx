@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import './assets/Guess.css'
 
 export default function Guess(props) {
     const inputRef = useRef()
@@ -18,7 +19,7 @@ export default function Guess(props) {
     return(
         <form onSubmit={handleGuess} method="get">
             <input type="text" ref={inputRef} placeholder="Solve the puzzle" />
-            <input type="submit" value="Enter" />
+            <input type="submit" value="Enter" className="button-67" />
         </form>
     );
 }

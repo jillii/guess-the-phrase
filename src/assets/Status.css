@@ -1,6 +1,11 @@
+.status-bar {
+    margin: 33px 0 44px;
+}
+
 .mistakes {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
 }
 .bubbles {
@@ -9,13 +14,19 @@
     gap: 4px;
 }
 .bubble {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 21px;
     width: 21px;
-    background-color: midnightblue;
-    border-radius: 50%;
-
 }
-.bubble.hidden {
+.bubble-inner {
+    height: 100%;
+    width: 100%;
+    background-color: midnightblue;
+    border-radius: 50%;   
+}
+.bubble.hidden .bubble-inner {
     animation: hide .2s forwards .5s linear;
 }
 
