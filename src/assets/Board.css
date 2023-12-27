@@ -1,5 +1,10 @@
 .board {
     display: flex;
-    gap: 4px;
+    gap: 12px;
     flex-wrap: wrap;
+}
+
+.word {
+   display: flex;
+   gap: 4px; 
 }
