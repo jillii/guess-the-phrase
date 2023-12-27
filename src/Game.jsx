@@ -41,7 +41,7 @@ export default function Game() {
             <Input onGuess={handleGuess} />
             <Board board={board} answer={answer} guess={guess} mistakes={mistakes} />
             <Status status={status} mistakes={mistakes} />
-            <Guess answer={answer} setBoard={setBoard} setStatus={setStatus} />
+            <Guess answer={answer} setBoard={setBoard} status={status} setStatus={setStatus} setMistakes={setMistakes} mistakes={mistakes} />
         </>
     );
 }

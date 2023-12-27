@@ -4,6 +4,7 @@ import './assets/Guess.css'
 export default function Guess(props) {
     const inputRef = useRef()
     const answer = props.answer
+    const status = props.status
     const setStatus = props.setStatus
     const setBoard = props.setBoard
 
@@ -13,13 +14,18 @@ export default function Guess(props) {
         if (input === answer.join('')) {
             setStatus('you win!')
             setBoard([...answer])
+        } else {
+            props.setMistakes(props.mistakes - 1)
         }
         inputRef.current.value = ''
     }
+
     return(
-        <form onSubmit={handleGuess} method="get">
-            <input type="text" ref={inputRef} placeholder="Solve the puzzle" />
-            <input type="submit" value="Enter" className="button-67" />
-        </form>
+        status === '' && (
+            <form onSubmit={handleGuess} method="get">
+                <input type="text" ref={inputRef} placeholder="Solve the puzzle" />
+                <input type="submit" value="Enter" className="button-67" />
+            </form>
+    )
     );
 }
