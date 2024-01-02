@@ -17,8 +17,6 @@ export default function Board(props) {
         status = 1
     }
 
-    console.log('guess: ' + guess)
-
     const board = answer.join('').split(' ').map((word, index) => {
         count++
         return (
