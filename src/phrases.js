@@ -4,7 +4,7 @@ export const PHRASES = [
     "Barking up the wrong tree",
     "Beat around the bush",
     "Bite the bullet",
-    "ury the hatchet",
+    "Bury the hatchet",
     "By the skin of your teeth",
     "Call it a day",
     "Cold feet",

@@ -17,13 +17,15 @@ export default function Board(props) {
         status = 1
     }
 
+    console.log('guess: ' + guess)
+
     const board = answer.join('').split(' ').map((word, index) => {
         count++
         return (
             <div className='word' key={index}>
                 {word.split('').map((letter, index) => {
-                    if (guess === answer[index]) {delay = delay + .5}
                     {count = count + 1}
+                    if (guess === answer[count]) {delay = delay + .5}
                     return <Box key={index} value={currentBoard[count]} answer={answer[count]} delay={guess === answer[count] ? delay : '0'} status={status} />
                 })}
             </div>
