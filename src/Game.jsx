@@ -8,8 +8,8 @@ import { useState, useRef, useEffect } from 'react'
 import { PHRASES } from './phrases'
 
 export default function Game() {
-    // const answer = useRef(getPhrase()).current
-    const answer = ['T', 'E', 'S', 'T']
+    const answer = useRef(getPhrase()).current
+    // const answer = ['T', 'E', 'S', 'T']
     const length = answer.reduce((accum, x) => x === ' ' ? accum : accum + x, '').length // get length of phrase without spaces
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
     const [guess, setGuess] = useState('')
