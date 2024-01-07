@@ -8,8 +8,8 @@ import { useState, useRef, useEffect } from 'react'
 import { PHRASES } from './phrases'
 
 export default function Game() {
-    const answer = useRef(getPhrase()).current
-    // const answer = ['T', 'E', 'S', 'T']
+    // const answer = useRef(getPhrase()).current
+    const answer = ['T', 'E', 'S', 'T']
     const length = answer.reduce((accum, x) => x === ' ' ? accum : accum + x, '').length // get length of phrase without spaces
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
     const [guess, setGuess] = useState('')
@@ -18,12 +18,14 @@ export default function Game() {
     const [score, setScore] = useState(0);
     const [prevScore, setPrevScore] = useState(score)
     const [notices, setNotices] = useState([])
+    const [noticeStep, setNoticeStep] = useState(0)
 
     const handleGuess = (guess) => {
         if (status == '') { // user hasn't won or lost
             const newBoard = [...board]
             let points = 0
             let miss = true;
+            let newNotices = []
 
             setGuess(guess)
             setPrevScore(score)
@@ -33,10 +35,12 @@ export default function Game() {
                     points += 100 / length
                     newBoard[index] = letter;
                     miss = false;
+                    newNotices = [...newNotices, `+${Math.ceil(100 / length)}`]
                 }
             });
             if (points > 0) {
-                setNotices([...notices, `+${Math.ceil(points)}`])
+                setNotices(newNotices)
+                setNoticeStep(noticeStep + 1)
                 setScore(score + Math.ceil(points))
             }
 
@@ -52,12 +56,12 @@ export default function Game() {
     }
     // add points for remaining mistakes
     useEffect(() => {
+        let newNotices = notices
         if (!!status && status === 'you win') {
-            let newNotices = [...notices];
             [...Array(mistakes)].map(x => {
                 newNotices = [...newNotices, '+10']
-                setNotices(newNotices)
             })
+            setNotices(newNotices)
             setScore(score + (mistakes * 10))
         }
       }, [status]);
@@ -65,7 +69,7 @@ export default function Game() {
     return(
         <> 
             <Input onGuess={handleGuess} />
-            <Notice notices={notices} />
+            <Notice notices={notices} key={noticeStep} />
             <Score score={score} prevScore={prevScore} />
             <Board board={board} answer={answer} guess={guess} mistakes={mistakes} />
             <Status status={status} mistakes={mistakes} />
@@ -80,8 +84,9 @@ export default function Game() {
                 mistakes={mistakes}
                 score={score}
                 setScore={setScore}
-                notices={notices}
                 setNotices={setNotices}
+                noticeStep={noticeStep}
+                setNoticeStep={setNoticeStep}
             />
         </>
     );

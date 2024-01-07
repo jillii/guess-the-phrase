@@ -4,9 +4,6 @@ export default function Score(props) {
     const prev = props.prevScore
     const score = props.score
 
-    console.log(prev)
-    console.log(score)
-
     return (
         <p className={`score${Math.ceil(score) === 1000 ? ' flashy-text' : ''}`} id="score" onLoad={animateValue(prev, score)}>{Math.ceil(prev)}</p>
     );

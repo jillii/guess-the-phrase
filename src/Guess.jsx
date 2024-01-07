@@ -12,28 +12,28 @@ export default function Guess(props) {
     const setBoard = props.setBoard
     const score = props.score
     const setScore = props.setScore
-    const notices = props.notices
     const setNotices = props.setNotices
+    const setNoticeStep = props.setNoticeStep
+    const noticeStep = props.noticeStep
 
     const handleGuess = (e) => {
         e.preventDefault()
         const input = inputRef.current.value.toUpperCase()
         if (input === answer.join('')) {
-            // get extra points for remaining mistakes
-            let newScore = score
-            let newNotices = [...notices]
-                board.map((x, index) => {
-                    if (x === ' ' && answer[index] !== ' ') {
-                        newScore += 200 / length
-                        newNotices = [...newNotices, `+${Math.ceil(newScore)}`]
-                        setNotices(newNotices)
-                    }
+            let points = 0
+            let newNotices = []
+            board.map((x, index) => {
+                if (x === ' ' && answer[index] !== ' ') {
+                    points += 200 / length
+                    newNotices = [...newNotices, `+${Math.ceil(200 / length)}`]
                 }
-            )
+            })
+            setNotices(newNotices)
+            // setNoticeStep(noticeStep + 1)
 
             setStatus('you win')
             setBoard([...answer])
-            setScore(newScore)
+            setScore(score + points)
         } else {
             props.setMistakes(props.mistakes - 1)
         }
