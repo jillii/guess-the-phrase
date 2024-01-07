@@ -1,0 +1,18 @@
+.fade-up {
+    position: absolute;
+    left: 50%;
+    opacity: 0;
+    animation: fade-up 1.8s ease-out forwards;
+}
+
+@keyframes fade-up {
+    0% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -45px);
+        opacity: 0;
+    }
+}
