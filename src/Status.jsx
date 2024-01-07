@@ -2,6 +2,7 @@ import './assets/Status.css'
 
 export default function Status(props) {
     const mistakes = props.mistakes
+    const status = props.status
 
     return(
         <div className="status-bar">
@@ -13,9 +14,9 @@ export default function Status(props) {
                     </div>
                 </div>
             }
-            {props.status &&
+            {status &&
                 <p className="wavy-text">
-                    {props.status.split('').map((letter, index) => <span key={index} style={{'--i':index + 1}}>{letter}</span>)}
+                    {status.split('').map((letter, index) => <span key={index} style={{'--i':index + 1}}>{letter}</span>)}
                 </p>
             }
         </div>

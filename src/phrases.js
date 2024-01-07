@@ -67,7 +67,7 @@ export const PHRASES = [
     "In hot water",
     "Jump on the bandwagon",
     "Kick the bucket",
-    "Hook, line, and sinker",
+    "Hook line and sinker",
     "Show your true colors",
     "On thin ice",
     "Play it by ear",
