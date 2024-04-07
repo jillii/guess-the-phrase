@@ -13,6 +13,7 @@ export default function Game() {
     const length = answer.reduce((accum, x) => x === ' ' ? accum : accum + x, '').length // get length of phrase without spaces
     const [board, setBoard] = useState(new Array(answer.length).fill(' '))
     const [guess, setGuess] = useState('')
+    const [possibleGuesses, setPossibleGuesses] = useState(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
     const [status, setStatus] = useState('')
     const [mistakes, setMistakes] = useState(4);
     const [score, setScore] = useState(0);
@@ -21,37 +22,46 @@ export default function Game() {
     const [noticeStep, setNoticeStep] = useState(0)
 
     const handleGuess = (guess) => {
+        
         if (status == '') { // user hasn't won or lost
-            const newBoard = [...board]
-            let points = 0
-            let miss = true;
             let newNotices = []
 
-            setGuess(guess)
-            setPrevScore(score)
+            if (possibleGuesses.includes(guess)) {
+                
+                const newBoard = [...board]
+                let points = 0
+                let miss = true;
+                
+                setGuess(guess)
+                setPossibleGuesses(possibleGuesses.filter(x => x !== guess))
+                setPrevScore(score)
 
-            answer.map((letter, index) => {
-                if (guess === letter) {
-                    points += 100 / length
-                    newBoard[index] = letter;
-                    miss = false;
-                    newNotices = [...newNotices, `+${Math.ceil(100 / length)}`]
+                answer.map((letter, index) => {
+                    if (guess === letter) {
+                        points += 100 / length
+                        newBoard[index] = letter;
+                        miss = false;
+                        newNotices = [...newNotices, `+${Math.ceil(100 / length)}`]
+                    }
+                });
+
+                if (miss) { 
+                    setMistakes(mistakes - 1)
+                    // handle losing
+                    if (mistakes <= 1) { setStatus('you lose') }
+                } else {
+                    setNotices(newNotices)
+                    setNoticeStep(noticeStep + 1)
+                    setScore(score + Math.ceil(points))
                 }
-            });
-            if (points > 0) {
+                setBoard([...newBoard])
+                // handle winning
+                if (JSON.stringify(newBoard) == JSON.stringify(answer)) { setStatus('you win') }
+            } else { // guess has already been guessed
+                newNotices = [...newNotices, 'you already guessed that']
                 setNotices(newNotices)
                 setNoticeStep(noticeStep + 1)
-                setScore(score + Math.ceil(points))
             }
-
-            if (miss) { 
-                setMistakes(mistakes - 1)
-                // handle losing
-                if (mistakes <= 1) { setStatus('you lose') }
-            }
-            setBoard([...newBoard])
-            // handle winning
-            if (JSON.stringify(newBoard) == JSON.stringify(answer)) { setStatus('you win') }
         }
     }
     // add points for remaining mistakes
@@ -80,10 +90,11 @@ export default function Game() {
                 setBoard={setBoard}
                 status={status}
                 setStatus={setStatus}
-                setMistakes={setMistakes}
                 mistakes={mistakes}
+                setMistakes={setMistakes}
                 score={score}
                 setScore={setScore}
+                notices={notices}
                 setNotices={setNotices}
                 noticeStep={noticeStep}
                 setNoticeStep={setNoticeStep}

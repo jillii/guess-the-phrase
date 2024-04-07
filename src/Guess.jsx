@@ -1,9 +1,10 @@
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import './assets/Guess.css'
 
 // try to guess the whole phrase
 export default function Guess(props) {
     const inputRef = useRef()
+    const popupOpenRef = useRef()
     const answer = props.answer
     const length = props.length
     const status = props.status
@@ -12,40 +13,74 @@ export default function Guess(props) {
     const setBoard = props.setBoard
     const score = props.score
     const setScore = props.setScore
+    const notices = props.notices
     const setNotices = props.setNotices
-    const setNoticeStep = props.setNoticeStep
     const noticeStep = props.noticeStep
+    const setNoticeStep = props.setNoticeStep
 
     const handleGuess = (e) => {
         e.preventDefault()
         const input = inputRef.current.value.toUpperCase()
-        if (input === answer.join('')) {
-            let points = 0
-            let newNotices = []
-            board.map((x, index) => {
-                if (x === ' ' && answer[index] !== ' ') {
-                    points += 200 / length
-                    newNotices = [...newNotices, `+${Math.ceil(200 / length)}`]
-                }
-            })
-            setNotices(newNotices)
-            // setNoticeStep(noticeStep + 1)
-
-            setStatus('you win')
-            setBoard([...answer])
-            setScore(score + points)
+        if (input === '') {
+            setNotices(['make a guess...'])
+            setNoticeStep(noticeStep + 1)
         } else {
-            props.setMistakes(props.mistakes - 1)
+            if (input === answer.join('')) { // correct guess
+                let points = 0
+                let newNotices = []
+                board.map((x, index) => {
+                    if (x === ' ' && answer[index] !== ' ') {
+                        points += 200 / length
+                        newNotices = [...newNotices, `+${Math.ceil(200 / length)}`]
+                    }
+                })
+                setNotices(newNotices)
+                setStatus('you win')
+                setBoard([...answer])
+                setScore(score + points)
+            } else { // wrong guess
+                props.setMistakes(props.mistakes - 1)
+                setNotices(['maybe next time'])
+                setNoticeStep(noticeStep + 1)
+            }
+            inputRef.current.value = ''
         }
-        inputRef.current.value = ''
     }
+
+    // handle popup closure
+    document.body.addEventListener('click', closePopup);
+    function closePopup (e) {
+        const target = e.target
+
+        if (target && target.classList.contains('popup-close') || (!target.closest('.popup') && !target.classList.contains('popup-open')) || (target.classList.contains('submit-guess') && inputRef.current && inputRef.current.value !== '') ) {
+            document.getElementById('popup').classList.remove('active') // close popup
+            document.getElementById('input').focus() // refocus on input
+        }
+    }
+    // handle popup open
+    useEffect(() =>{
+        function openPopup () {
+            document.getElementById('popup').classList.add('active')
+            inputRef.current.focus()
+        };
+        popupOpenRef.current.addEventListener('click', openPopup)
+        return () => {
+            popupOpenRef.current.removeEventListener('click', openPopup)
+        }
+    }, [])
 
     return(
         status === '' && (
-            <form onSubmit={handleGuess} method="get">
-                <input type="text" ref={inputRef} placeholder="Solve the puzzle" />
-                <input type="submit" value="Enter" className="button-67" />
-            </form>
+            <>
+                <div className="popup" id="popup">
+                    <div className="popup-close"></div>
+                    <form id="guessForm" onSubmit={handleGuess} method="get">
+                        <input id="guessInput" type="text" ref={inputRef} placeholder="Solve the puzzle" />
+                        <input type="submit" value="Enter" className="button submit-guess" />
+                    </form>
+                </div>
+                <button ref={popupOpenRef} className="button popup-open">Make a Guess</button>
+            </>
         )
     );
 }

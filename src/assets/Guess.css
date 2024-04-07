@@ -1,8 +1,59 @@
-form {
+@property --depth {
+    syntax: '<length>';
+    initial-value: 0px;
+    inherits: false;
+}
+
+.popup {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 400px;
+    width: 75%;
+    max-width: 700px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-direction: column;
+    gap: 33px;
+    align-items: center;
     justify-content: center;
+    background-color: #fffefd;
+    transform-origin: center;
+    --depth: 0px;
+    box-shadow: var(--depth) var(--depth) var(--depth) #d9d9e2;
+    translate: -50% -50%;
+    transition: opacity .25s, rotate .25s;
+    &.active {
+        opacity: 1;
+        pointer-events: all;
+        rotate: 720deg;
+        animation: increaseDepth .25s linear forwards;
+    }
+    .popup-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        cursor: pointer;
+        &:before {
+            content: '+';
+            display: block;
+            transform: rotate(45deg);
+        }
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        width: 70%;
+        input {
+            text-align: center;
+        
+            &[type=text] {
+                font-size: 22px;
+            }
+        }
+    }
 }
 input {
     font-family: "Cascadia Code",Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;
@@ -10,7 +61,6 @@ input {
 input[type=text] {
     appearance: none;
     -webkit-appearance: none;
-    height: 33px;
     padding: 6px 12px;
     background-color: transparent;
     border-width: 0;
@@ -50,4 +100,14 @@ input[type=submit]:hover {
 input[type=submit]:active {
     background-color: #f5f5fa;
     box-shadow: inset #2a274f17 0 1px 2px, inset #2a274f17 0 2px 4px,inset #2a274f17 0 4px 8px,inset #2a274f17 0 8px 16px,#2a274f17 0 16px 32px
+}
+
+  
+@keyframes increaseDepth {
+    0% {
+        --depth: 0px;
+    }
+    100% {
+        --depth: 8px;
+    }
 }

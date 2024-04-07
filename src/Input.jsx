@@ -1,29 +1,25 @@
-import { useRef, useState } from "react"
+import { useRef, useEffect } from "react"
 import './assets/Input.css'
 
 export default function Input(props) {
-    const inputRef = useRef()
-    const [possibleGuesses, setPossibleGuesses] = useState(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+    const input = useRef(null)
 
+    const handleSubmit = () => {
+        const value = input.current.value.toUpperCase()
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const input = inputRef.current.value.toUpperCase()
-
-        props.onGuess(input)
-        setPossibleGuesses(possibleGuesses.filter(x => x !== input))
-        // reset select
-        inputRef.current.value = 'Select'
+        props.onGuess(value)
+        // reset
+        input.current.value = ''
     }
 
-    return (
-        <div className="select">
-            <select className="style widthHeight" onChange={handleSubmit} ref={inputRef}>
-                <option value="select" style={{pointerEvents: 'none'}}>Select</option>
-                {possibleGuesses.map((letter, index) =>
-                    <option key={index} value={letter}>{letter}</option>
-                )}
-            </select>
-        </div>
-    );
+    const handleBlur = (e) => {
+        setTimeout(function(){
+            if (document.activeElement.id !== 'guessInput') {
+                e.target.focus()
+            }
+         },1);
+    }
+
+    return <input id="input" type="text" style={{opacity: '0'}} maxLength="1" onChange={handleSubmit} ref={input} onBlur={handleBlur} autoFocus />;
 }
+
