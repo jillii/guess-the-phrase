@@ -20,7 +20,9 @@ export default function Input(props) {
             elm.focus()
         }
         elem.addEventListener('blur', function() {
-            refocus(elem)
+            if (!document.getElementById('popup').classList.contains('active')) { // popup inactive
+                refocus(elem)
+            }
         });
     
     }, [])
