@@ -27,6 +27,6 @@ export default function Input(props) {
     
     }, [])
 
-    return <input id="input" type="text" maxLength="1" onChange={handleSubmit} ref={input} autoFocus />;
+    return <input id="input" type="text" maxLength="1" style={{opacity: '0'}} onChange={handleSubmit} ref={input} autoFocus />;
 }
 
