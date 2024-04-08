@@ -65,7 +65,8 @@ export default function Guess(props) {
         };
         popupOpenRef.current.addEventListener('click', openPopup)
         return () => {
-            popupOpenRef.current.removeEventListener('click', openPopup)
+            // popupOpenRef &&
+            // popupOpenRef.current.removeEventListener('click', openPopup)
         }
     }, [])
 
@@ -79,7 +80,7 @@ export default function Guess(props) {
                         <input type="submit" value="Enter" className="button submit-guess" />
                     </form>
                 </div>
-                <button ref={popupOpenRef} className="button popup-open">Make a Guess</button>
+                <button ref={popupOpenRef} className="btn popup-open do-it">Make a Guess</button>
             </>
         )
     );

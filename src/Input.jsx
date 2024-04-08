@@ -12,14 +12,19 @@ export default function Input(props) {
         input.current.value = ''
     }
 
-    const handleBlur = (e) => {
-        setTimeout(function(){
-            if (document.activeElement.id !== 'guessInput') {
-                e.target.focus()
-            }
-         },1);
-    }
+    useEffect(() => {
+        const elem = input.current;
+        elem.focus()
 
-    return <input id="input" type="text" style={{opacity: '0'}} maxLength="1" onChange={handleSubmit} ref={input} onBlur={handleBlur} autoFocus />;
+        function refocus(elm) {
+            elm.focus()
+        }
+        elem.addEventListener('blur', function() {
+            refocus(elem)
+        });
+    
+    }, [])
+
+    return <input id="input" type="text" maxLength="1" onChange={handleSubmit} ref={input} autoFocus />;
 }
 

@@ -5,6 +5,48 @@
   text-align: center;
 }
 
-.card {
-  padding: 2em;
+.btn, input[type=submit] {
+  display: inline-block;
+  min-width: 190px;
+  padding: 6px 12px;
+  border: 2.4px solid #222222;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #222222;
+  transition: box-shadow .25s, transform .25s;
+
+  &:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 #222222;
+  }
+
+  &.do-it {
+    position: relative;
+    &:after {
+      content: "do it";
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translate(-50%, 0);
+      opacity: 0;
+    }
+    &:hover:after {
+      animation: fade-up 3s infinite linear;
+    }
+  }
+}
+
+@keyframes fade-up {
+  0%, 100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -25px);
+  }
 }
