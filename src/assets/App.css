@@ -1,8 +1,15 @@
 #root {
   max-width: 1280px;
-  margin: min(45%, 201px) auto;
+  align-content: center;
+  margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+.refresh {
+  position: absolute;
+  top: 12px;
+  right: 12px;
 }
 
 .btn, input[type=submit] {

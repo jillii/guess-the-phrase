@@ -78,6 +78,7 @@ export default function Game() {
 
     return(
         <> 
+            <a className="refresh" href="/">New Game?</a>
             <Input onGuess={handleGuess} />
             <Notice notices={notices} key={noticeStep} />
             <Score score={score} prevScore={prevScore} />
