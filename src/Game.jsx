@@ -4,6 +4,7 @@ import Notice from './Notice'
 import Status from './Status'
 import Guess from './Guess'
 import Score from './Score'
+import confetti from 'canvas-confetti'
 import { useState, useRef, useEffect } from 'react'
 import { PHRASES } from './phrases'
 
@@ -20,6 +21,12 @@ export default function Game() {
     const [prevScore, setPrevScore] = useState(score)
     const [notices, setNotices] = useState([])
     const [noticeStep, setNoticeStep] = useState(0)
+    const defaults = {spread: 360, ticks: 100, gravity: 1, decay: 0.94, startVelocity: 20, colors: ['0000ff', 'ff00ff', '7fff00', 'ff4500', 'FDFFB8']}
+      
+    function stars() {
+        confetti({...defaults, particleCount: 20, scalar: 1.2, shapes: ['star']})
+        confetti({...defaults, particleCount: 80, scalar: 0.75, shapes: ['circle']})
+    }
 
     const handleGuess = (guess) => {
         
@@ -56,7 +63,15 @@ export default function Game() {
                 }
                 setBoard([...newBoard])
                 // handle winning
-                if (JSON.stringify(newBoard) == JSON.stringify(answer)) { setStatus('you win') }
+                if (JSON.stringify(newBoard) == JSON.stringify(answer)) {
+                    setStatus('you win')
+                    setTimeout(stars, 0)
+                    setTimeout(stars, 500)
+                    setTimeout(stars, 800)
+                    setTimeout(stars, 1200)
+                    setTimeout(stars, 1600)
+                }
+            
             } else { // guess has already been guessed
                 newNotices = [...newNotices, 'you already guessed that']
                 setNotices(newNotices)
