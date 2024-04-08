@@ -23,6 +23,7 @@
     --depth: 0px;
     box-shadow: var(--depth) var(--depth) var(--depth) #d9d9e2;
     translate: -50% -50%;
+    z-index: 999;
     transition: opacity .25s, rotate .25s;
     &.active {
         opacity: 1;
