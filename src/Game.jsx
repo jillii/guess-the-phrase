@@ -65,11 +65,6 @@ export default function Game() {
                 // handle winning
                 if (JSON.stringify(newBoard) == JSON.stringify(answer)) {
                     setStatus('you win')
-                    setTimeout(stars, 0)
-                    setTimeout(stars, 500)
-                    setTimeout(stars, 800)
-                    setTimeout(stars, 1200)
-                    setTimeout(stars, 1600)
                 }
             
             } else { // guess has already been guessed
@@ -88,6 +83,11 @@ export default function Game() {
             })
             setNotices(newNotices)
             setScore(score + (mistakes * 10))
+            setTimeout(stars, 0)
+            setTimeout(stars, 500)
+            setTimeout(stars, 800)
+            setTimeout(stars, 1200)
+            setTimeout(stars, 1600)
         }
       }, [status]);
 
