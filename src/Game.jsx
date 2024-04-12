@@ -1,9 +1,11 @@
 import Board from './Board'
 import Input from './Input'
+import Popup from './Popup'
 import Notice from './Notice'
 import Status from './Status'
 import Guess from './Guess'
 import Score from './Score'
+import Controls from './Controls'
 import confetti from 'canvas-confetti'
 import { useState, useRef, useEffect } from 'react'
 import { PHRASES } from './phrases'
@@ -93,7 +95,18 @@ export default function Game() {
 
     return(
         <> 
-            <a className="refresh" href="/">New Game?</a>
+            <Controls>
+                <a href=".">Restart</a>
+                <a href='#' onClick={e => {e.preventDefault(); document.getElementById('rules').classList.add('active')}}>Rules</a>
+            </Controls>
+            <Popup id="rules" open_on_session_start={true}>
+                <b>Rules</b>
+                <p>We give you a random phrase, and you have to guess what it is. Use your keyboard to guess a letter. When you think you know the answer, click "MAKE A GUESS" to guess the whole phrase.</p>
+                <b>Scoring</b>
+                <p>Each letter you guess correctly is 100 divided by the length of the phrase. If you guess the whole phrase correctly, each letter you uncover will be 200 divided by the length of the phrase. Upon winning, you will be awared 10 extra points for each mistake you did not use.</p>
+                <b>Penalties</b>
+                <p>You have 4 mistakes, before you lose. You will not be penalized for guessing the same wrong letter twice. Incorrectly gueesing the whole phrase will cost one mistake.</p>
+            </Popup>
             <Input onGuess={handleGuess} />
             <Notice notices={notices} key={noticeStep} />
             <Score score={score} prevScore={prevScore} />

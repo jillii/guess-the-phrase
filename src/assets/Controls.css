@@ -1,0 +1,8 @@
+.controls {
+    position: absolute;
+    top: 33px;
+    right: 33px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

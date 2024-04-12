@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react"
+import Popup from "./Popup"
 import './assets/Guess.css'
 
 // try to guess the whole phrase
@@ -73,13 +74,12 @@ export default function Guess(props) {
     return(
         status === '' && (
             <>
-                <div className="popup" id="popup">
-                    <div className="popup-close"></div>
+                <Popup id="popup">
                     <form id="guessForm" onSubmit={handleGuess} method="get">
                         <input id="guessInput" type="text" ref={inputRef} placeholder="Solve the puzzle" />
                         <input type="submit" value="Enter" className="button submit-guess" />
                     </form>
-                </div>
+                </Popup>
                 <button ref={popupOpenRef} className="btn popup-open do-it">Make a Guess</button>
             </>
         )
