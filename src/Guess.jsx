@@ -47,28 +47,11 @@ export default function Guess(props) {
             inputRef.current.value = ''
         }
     }
-
-    // handle popup closure
-    document.body.addEventListener('click', closePopup);
-    function closePopup (e) {
-        const target = e.target
-
-        if (target && target.classList.contains('popup-close') || (!target.closest('.popup') && !target.classList.contains('popup-open')) || (target.classList.contains('submit-guess') && inputRef.current && inputRef.current.value !== '') ) {
-            document.getElementById('popup').classList.remove('active') // close popup
-            document.getElementById('input').focus() // refocus on input
-        }
-    }
     // handle popup open
     useEffect(() =>{
-        function openPopup () {
-            document.getElementById('popup').classList.add('active')
+        popupOpenRef.current.addEventListener('click', function(){
             inputRef.current.focus()
-        };
-        popupOpenRef.current.addEventListener('click', openPopup)
-        return () => {
-            // popupOpenRef &&
-            // popupOpenRef.current.removeEventListener('click', openPopup)
-        }
+        })
     }, [])
 
     return(
@@ -80,7 +63,7 @@ export default function Guess(props) {
                         <input type="submit" value="Enter" className="button submit-guess" />
                     </form>
                 </Popup>
-                <button ref={popupOpenRef} className="btn popup-open do-it">Make a Guess</button>
+                <button ref={popupOpenRef} className="btn popup-open do-it" onClick={e => {e.preventDefault(); document.getElementById('popup').classList.add('active')}}>Make a Guess</button>
             </>
         )
     );

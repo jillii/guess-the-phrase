@@ -13,14 +13,15 @@ export default function Input(props) {
     }
 
     useEffect(() => {
-        const elem = input.current;
+        const elem = input.current
+        const popup = document.getElementById('popup')
         elem.focus()
 
         function refocus(elm) {
             elm.focus()
         }
         elem.addEventListener('blur', function() {
-            if (!document.getElementById('popup').classList.contains('active')) { // popup inactive
+            if (!(popup && popup.classList.contains('active'))) { // popup inactive
                 refocus(elem)
             }
         });
