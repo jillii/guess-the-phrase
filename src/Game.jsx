@@ -24,7 +24,11 @@ export default function Game() {
     const [notices, setNotices] = useState([])
     const [noticeStep, setNoticeStep] = useState(0)
     const defaults = {spread: 360, ticks: 100, gravity: 1, decay: 0.94, startVelocity: 20, colors: ['0000ff', 'ff00ff', '7fff00', 'ff4500', 'FDFFB8']}
-      
+    const storage = JSON.parse(window.sessionStorage.getItem("stats"))
+    const [stats, setStats] = useState(storage)
+    const [gamesPlayed, setGamesPlayed] = useState(JSON.parse(window.sessionStorage.getItem("gamesPlayed")) || 0)
+    const [wins, setWins] = useState(JSON.parse(window.sessionStorage.getItem("wins")) || 0)
+    
     function stars() {
         confetti({...defaults, particleCount: 20, scalar: 1.2, shapes: ['star']})
         confetti({...defaults, particleCount: 80, scalar: 0.75, shapes: ['circle']})
@@ -57,7 +61,9 @@ export default function Game() {
                 if (miss) { 
                     setMistakes(mistakes - 1)
                     // handle losing
-                    if (mistakes <= 1) { setStatus('you lose') }
+                    if (mistakes <= 1) { 
+                        setStatus('you lose')
+                    }
                 } else {
                     setNotices(newNotices)
                     setNoticeStep(noticeStep + 1)
@@ -79,25 +85,53 @@ export default function Game() {
     // add points for remaining mistakes
     useEffect(() => {
         let newNotices = notices
-        if (!!status && status === 'you win') {
-            [...Array(mistakes)].map(x => {
-                newNotices = [...newNotices, '+10']
-            })
-            setNotices(newNotices)
-            setScore(score + (mistakes * 10))
-            setTimeout(stars, 0)
-            setTimeout(stars, 500)
-            setTimeout(stars, 800)
-            setTimeout(stars, 1200)
-            setTimeout(stars, 1600)
+        if (!!status) {
+            // handle winning
+            if (status === 'you win') {
+                [...Array(mistakes)].map(x => {
+                    newNotices = [...newNotices, '+10']
+                })
+                setNotices(newNotices)
+                setScore(score + (mistakes * 10))
+                setTimeout(stars, 0)
+                setTimeout(stars, 500)
+                setTimeout(stars, 800)
+                setTimeout(stars, 1200)
+                setTimeout(stars, 1600)
+
+                setWins(wins + 1)
+            }
+            // update stats
+            const newStats = {
+                board: board,
+                answer: answer,
+                score: score,
+                win: JSON.stringify(board) == JSON.stringify(answer),
+                mistakes: 4 - mistakes
+            }
+            if (storage) {
+                setStats([...storage, newStats])
+            } else {
+                setStats([newStats])
+            }
+
+            setGamesPlayed(gamesPlayed + 1)
         }
-      }, [status]);
+    }, [status]);
+    
+    useEffect(() => {
+        !!stats && !!status &&
+        window.sessionStorage.setItem('stats', JSON.stringify(stats))
+        window.sessionStorage.setItem('gamesPlayed', JSON.stringify(gamesPlayed))
+        window.sessionStorage.setItem('wins', JSON.stringify(wins))
+    }, [stats])
 
     return(
         <> 
             <Controls>
                 <a href=".">Restart</a>
                 <a href='#' onClick={e => {e.preventDefault(); document.getElementById('rules').classList.add('active')}}>Rules</a>
+                <a href='#' onClick={e => {e.preventDefault(); document.getElementById('stats').classList.add('active')}}>Stats</a>
             </Controls>
             <Popup id="rules" open_on_session_start={true}>
                 <b>Rules</b>
@@ -106,6 +140,26 @@ export default function Game() {
                 <p>Each letter you guess correctly is 100 divided by the length of the phrase. If you guess the whole phrase correctly, each letter you uncover will be 200 divided by the length of the phrase. Upon winning, you will be awared 10 extra points for each mistake you did not use.</p>
                 <b>Penalties</b>
                 <p>You have 4 mistakes, before you lose. You will not be penalized for guessing the same wrong letter twice. Incorrectly gueesing the whole phrase will cost one mistake.</p>
+            </Popup>
+            <Popup id="stats">
+                <b>STATS</b>
+                {stats && 
+                    <>
+                        <p>Games played: {gamesPlayed}</p>
+                        <p>Win ratio: {wins == 0 ? 0 : (wins / gamesPlayed) * 100}%</p>
+                        {stats.map((item, index) => {
+                            return (
+                                <div key={index} className='stat fade-in' style={{animationDelay: `${index * 100}s`}}>
+                                    <p>{item.win ? 'success' : 'fail'}</p>
+                                    <p>Score: {item.score}</p>
+                                    {item.win && item.mistakes > 0 && <p>Mistakes: {item.mistakes}</p>}
+                                    <Board key={index} board={item.board} answer={item.answer} mistakes={0} />
+                                </div>
+                            )
+                        })}
+                    </>
+                }
+                
             </Popup>
             <Input onGuess={handleGuess} />
             <Notice notices={notices} key={noticeStep} />

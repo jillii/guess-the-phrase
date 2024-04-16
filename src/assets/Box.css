@@ -37,12 +37,6 @@
     transition: background-image .25s;
 }
 
-@keyframes popout {
-    from {
-
-    }
-}
-
 .box.is-space {
     background-color: transparent;
 }

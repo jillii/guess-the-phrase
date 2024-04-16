@@ -13,11 +13,11 @@ export default function Board(props) {
         status = -1
     }
     // handle win
-    if (JSON.stringify(currentBoard) == JSON.stringify(props.answer)) {
+    if (JSON.stringify(currentBoard) == JSON.stringify(answer)) {
         status = 1
     }
 
-    const board = answer.join('').split(' ').map((word, index) => {
+    const board = answer && answer.join('').split(' ').map((word, index) => {
         count++
         return (
             <div className='word' key={index}>

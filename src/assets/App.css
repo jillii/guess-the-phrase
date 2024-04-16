@@ -6,13 +6,12 @@
   text-align: center;
 }
 
-.refresh {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+p {
+  margin: 0 0 8px;
 }
 
 .btn, input[type=submit] {
+  position: relative;
   display: inline-block;
   min-width: 190px;
   padding: 6px 12px;
@@ -31,8 +30,20 @@
     box-shadow: 0 0 0 #222222;
   }
 
+  &:before {
+    content: "ouch";
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, 0);
+    opacity: 0;
+    z-index: 999;
+  }
+  &:active::before {
+    animation: fade-up 3s infinite linear;
+  }
+
   &.do-it {
-    position: relative;
     &:after {
       content: "do it";
       position: absolute;
