@@ -6,6 +6,7 @@ import Status from './Status'
 import Guess from './Guess'
 import Score from './Score'
 import Controls from './Controls'
+import Stats from './Stats'
 import confetti from 'canvas-confetti'
 import { useState, useRef, useEffect } from 'react'
 import { PHRASES } from './phrases'
@@ -143,24 +144,7 @@ export default function Game() {
                 <p>You have 4 mistakes, before you lose. You will not be penalized for guessing the same wrong letter twice. Incorrectly gueesing the whole phrase will cost one mistake.</p>
             </Popup>
             <Popup id="stats">
-                <b>STATS</b>
-                {stats && 
-                    <>
-                        <p>Games played: {gamesPlayed}</p>
-                        <p>Win ratio: {wins == 0 ? 0 : (wins / gamesPlayed) * 100}%</p>
-                        {stats.map((item, index) => {
-                            return (
-                                <div key={index} className='stat fade-in' style={{animationDelay: `${index * 100}s`}}>
-                                    <p>{item.win ? 'success' : 'fail'}</p>
-                                    <p>Score: {item.score}</p>
-                                    {item.win && item.mistakes > 0 && <p>Mistakes: {item.mistakes}</p>}
-                                    <Board key={index} board={item.board} answer={item.answer} mistakes={0} />
-                                </div>
-                            )
-                        })}
-                    </>
-                }
-                
+                <Stats gamesPlayed={gamesPlayed} wins={wins} stats={stats} />
             </Popup>
             <Input onGuess={handleGuess} />
             <Notice notices={notices} key={noticeStep} />
