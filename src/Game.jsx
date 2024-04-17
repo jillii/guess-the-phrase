@@ -111,7 +111,7 @@ export default function Game() {
                 mistakes: 4 - mistakes
             }
             if (storage) {
-                setStats([...storage, newStats])
+                setStats([newStats, ...storage])
             } else {
                 setStats([newStats])
             }
