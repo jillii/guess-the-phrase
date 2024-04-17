@@ -93,6 +93,7 @@ export default function Game() {
                 })
                 setNotices(newNotices)
                 setScore(score + (mistakes * 10))
+
                 setTimeout(stars, 0)
                 setTimeout(stars, 500)
                 setTimeout(stars, 800)
@@ -105,7 +106,7 @@ export default function Game() {
             const newStats = {
                 board: board,
                 answer: answer,
-                score: score,
+                score: score + mistakes * 10,
                 win: JSON.stringify(board) == JSON.stringify(answer),
                 mistakes: 4 - mistakes
             }
