@@ -122,10 +122,12 @@ export default function Game() {
     }, [status]);
     
     useEffect(() => {
-        !!stats && !!status &&
-        window.sessionStorage.setItem('stats', JSON.stringify(stats))
-        window.sessionStorage.setItem('gamesPlayed', JSON.stringify(gamesPlayed))
-        window.sessionStorage.setItem('wins', JSON.stringify(wins))
+        if (!!stats && !!status) {
+            window.sessionStorage.setItem('stats', JSON.stringify(stats))
+            window.sessionStorage.setItem('gamesPlayed', JSON.stringify(gamesPlayed))
+            window.sessionStorage.setItem('wins', JSON.stringify(wins))
+            setTimeout(function(){document.getElementById('stats').classList.add('animate', 'active')}, 2000)
+        }
     }, [stats])
 
     return(

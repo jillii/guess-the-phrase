@@ -4,6 +4,12 @@
     inherits: false;
 }
 
+@property --height {
+    syntax: '<length>';
+    initial-value: 0px;
+    inherits: false;
+}
+
 .popup {
     opacity: 0;
     pointer-events: none;
@@ -74,9 +80,15 @@
 #stats .box {
     text-align: center;
 }
+#stats .box p:after {
+    content: none;
+}
 #stats.active {
     rotate: 0deg;
     animation: increaseDepth .25s linear forwards, soarIn .5s forwards steps(8);
+}
+#stats.animate .stat:first-of-type {
+    animation: appear 1.2s forwards linear;
 }
 
 @keyframes soarIn {
@@ -87,5 +99,37 @@
     to {
         height: 100vh;
         width: 100%;
+    }
+}
+  
+@keyframes increaseDepth {
+    0% {
+        --depth: 0px;
+    }
+    100% {
+        --depth: 8px;
+    }
+}
+
+@keyframes appear {
+    0% {
+        ---height: 0;
+        margin-top: 0;
+        padding-top: 0;
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    25% {
+        ---height: auto;
+        margin-top: 33px;
+        padding-top: 33px;
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        transform: none;
     }
 }
