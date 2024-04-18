@@ -29,6 +29,7 @@ export default function Game() {
     const [stats, setStats] = useState(storage)
     const [gamesPlayed, setGamesPlayed] = useState(JSON.parse(window.sessionStorage.getItem("gamesPlayed")) || 0)
     const [wins, setWins] = useState(JSON.parse(window.sessionStorage.getItem("wins")) || 0)
+    const [total, setTotal] = useState(JSON.parse(window.sessionStorage.getItem("total")) || 0)
     
     function stars() {
         confetti({...defaults, particleCount: 20, scalar: 1.2, shapes: ['star']})
@@ -118,18 +119,22 @@ export default function Game() {
             }
 
             setGamesPlayed(gamesPlayed + 1)
+            setTotal(total + score + mistakes * 10)
+
+            console.log(total + score + mistakes * 10)
         }
     }, [status]);
-    
+    // post game (win or lose)
     useEffect(() => {
         if (!!stats && !!status) {
             window.sessionStorage.setItem('stats', JSON.stringify(stats))
             window.sessionStorage.setItem('gamesPlayed', JSON.stringify(gamesPlayed))
             window.sessionStorage.setItem('wins', JSON.stringify(wins))
+            window.sessionStorage.setItem('total', JSON.stringify(total))
             setTimeout(function(){document.getElementById('stats').classList.add('animate', 'active')}, 2000)
         }
     }, [stats])
-
+    console.log(total)
     return(
         <> 
             <Controls>
@@ -147,7 +152,7 @@ export default function Game() {
             </Popup>
             {stats &&
                 <Popup id="stats">
-                    <Stats gamesPlayed={gamesPlayed} wins={wins} stats={stats} />
+                    <Stats gamesPlayed={gamesPlayed} wins={wins} total={total} stats={stats} />
                 </Popup>
             }
             <Input onGuess={handleGuess} />
