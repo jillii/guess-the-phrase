@@ -133,7 +133,7 @@ export default function Game() {
             <Controls>
                 <a href=".">Restart</a>
                 <a href='#' onClick={e => {e.preventDefault(); document.getElementById('rules').classList.add('active')}}>Rules</a>
-                <a href='#' onClick={e => {e.preventDefault(); document.getElementById('stats').classList.add('active')}}>Stats</a>
+                {stats && <a href='#' onClick={e => {e.preventDefault(); document.getElementById('stats').classList.add('active')}}>Stats</a>}
             </Controls>
             <Popup id="rules" open_on_session_start={true}>
                 <b>Rules</b>
@@ -143,9 +143,11 @@ export default function Game() {
                 <b>Penalties</b>
                 <p>You have 4 mistakes, before you lose. You will not be penalized for guessing the same wrong letter twice. Incorrectly gueesing the whole phrase will cost one mistake.</p>
             </Popup>
-            <Popup id="stats">
-                <Stats gamesPlayed={gamesPlayed} wins={wins} stats={stats} />
-            </Popup>
+            {stats &&
+                <Popup id="stats">
+                    <Stats gamesPlayed={gamesPlayed} wins={wins} stats={stats} />
+                </Popup>
+            }
             <Input onGuess={handleGuess} />
             <Notice notices={notices} key={noticeStep} />
             <Score score={score} prevScore={prevScore} />
