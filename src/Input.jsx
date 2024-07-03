@@ -15,7 +15,7 @@ export default function Input(props) {
     useEffect(() => {
         const elem = input.current
         const popup = document.getElementById('popup')
-        elem.trigger('click')
+        elem.click()
 
         function refocus(elm) {
             elm.focus()
