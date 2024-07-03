@@ -120,8 +120,6 @@ export default function Game() {
 
             setGamesPlayed(gamesPlayed + 1)
             setTotal(total + score + mistakes * 10)
-
-            console.log(total + score + mistakes * 10)
         }
     }, [status]);
     // post game (win or lose)
@@ -131,10 +129,9 @@ export default function Game() {
             window.sessionStorage.setItem('gamesPlayed', JSON.stringify(gamesPlayed))
             window.sessionStorage.setItem('wins', JSON.stringify(wins))
             window.sessionStorage.setItem('total', JSON.stringify(total))
-            setTimeout(function(){document.getElementById('stats').classList.add('animate', 'active')}, 2000)
         }
     }, [stats])
-    console.log(total)
+    // console.log(total)
     return(
         <> 
             <Controls>
@@ -152,7 +149,7 @@ export default function Game() {
             </Popup>
             {stats &&
                 <Popup id="stats">
-                    <Stats gamesPlayed={gamesPlayed} wins={wins} total={total} stats={stats} />
+                    <Stats gamesPlayed={gamesPlayed} wins={wins} total={total} stats={stats} status={status} />
                 </Popup>
             }
             <Input onGuess={handleGuess} />

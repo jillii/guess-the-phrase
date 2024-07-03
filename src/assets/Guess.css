@@ -1,17 +1,18 @@
 form {
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     gap: 40px;
     width: 70%;
-    input {
-        text-align: center;
-    
-        &[type=text] {
-            font-size: 22px;
-        }
-    }
 }
+
+input:not([type=submit]) {
+    font-size: 22px;
+}
+
 input {
+    max-width: 100%;
+    text-align: center;
     font-family: "Cascadia Code",Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;
 }
 input[type=text] {
@@ -32,4 +33,17 @@ input[type=text]:focus {
 
 input[type=text]:focus::placeholder {
     color: transparent;
+}
+
+@media (max-width: 560px) {
+    form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    form input:not([type=submit]) {
+        font-size: 16px;
+        line-height: 22px;
+    }
 }

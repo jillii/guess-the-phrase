@@ -1,3 +1,7 @@
+html {
+  height: 100vh;
+  overflow: hidden;
+}
 #root {
   max-width: 1280px;
   align-content: center;
@@ -20,42 +24,43 @@ p {
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
+  color: #36395A;
   background-color: transparent;
   cursor: pointer;
   box-shadow: 0 3px 0 #222222;
   transition: box-shadow .25s, transform .25s;
+}
+input[type=submit]:active,
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #222222;
+}
 
-  &:active {
-    transform: translateY(3px);
-    box-shadow: 0 0 0 #222222;
-  }
-
-  &:before {
-    content: "ouch";
-    position: absolute;
-    left: 50%;
-    bottom: 100%;
-    transform: translate(-50%, 0);
-    opacity: 0;
-    z-index: 999;
-  }
-  &:active::before {
+input[type=submit]:before,
+.btn:before {
+  content: "ouch";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  z-index: 999;
+}
+input[type=submit]:active:before,
+.btn:active:before {
     animation: fade-up 3s infinite linear;
-  }
+}
 
-  &.do-it {
-    &:after {
-      content: "do it";
-      position: absolute;
-      left: 50%;
-      bottom: 100%;
-      transform: translate(-50%, 0);
-      opacity: 0;
-    }
-    &:hover:after {
-      animation: fade-up 3s infinite linear;
-    }
-  }
+.btn.do-it:after {
+  content: "do it";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%, 0);
+  opacity: 0;
+}
+.btn.do-it:hover:after {
+  animation: fade-up 3s infinite linear;
 }
 
 @keyframes fade-up {
