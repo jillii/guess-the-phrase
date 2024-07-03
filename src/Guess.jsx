@@ -22,10 +22,15 @@ export default function Guess(props) {
     const handleGuess = (e) => {
         e.preventDefault()
         const input = inputRef.current.value.toUpperCase()
-        if (input === '') {
+
+        if (!input || input === '') {
+            inputRef.current.focus()
             setNotices(['make a guess...'])
             setNoticeStep(noticeStep + 1)
         } else {
+            document.getElementById('popup').classList.remove('active')
+            document.getElementById('input').focus()
+
             if (input === answer.join('')) { // correct guess
                 let points = 0
                 let newNotices = []
@@ -58,7 +63,7 @@ export default function Guess(props) {
         status === '' && (
             <>
                 <Popup id="popup">
-                    <form id="guessForm" onSubmit={handleGuess} method="get">
+                    <form id="guessForm" autoComplete="off" onSubmit={handleGuess} method="get">
                         <input id="guessInput" type="text" ref={inputRef} placeholder="Solve the puzzle" />
                         <input type="submit" value="Enter" className="button submit-guess" />
                     </form>
