@@ -134,6 +134,7 @@ export default function Game() {
     // console.log(total)
     return(
         <> 
+            <Input onGuess={handleGuess} />
             <Controls>
                 <a href=".">Restart</a>
                 <a href='#' onClick={e => {e.preventDefault(); document.getElementById('rules').classList.add('active')}}>Rules</a>
@@ -152,7 +153,6 @@ export default function Game() {
                     <Stats gamesPlayed={gamesPlayed} wins={wins} total={total} stats={stats} status={status} />
                 </Popup>
             }
-            <Input onGuess={handleGuess} />
             <Notice notices={notices} key={noticeStep} />
             <Score score={score} prevScore={prevScore} />
             <Board board={board} answer={answer} guess={guess} mistakes={mistakes} />
